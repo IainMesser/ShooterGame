@@ -13,8 +13,8 @@ body {
 }
 
 h1 {
-    font-size: 3rem;
-    color: #ffffff; /* White color for title */
+    font-size: 4rem;
+    color: #d6d6d6; /* White color for title */
     text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff; /* Glowing effect */
     margin-bottom: 30px;
 }

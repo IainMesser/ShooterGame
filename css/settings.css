@@ -1,64 +1,129 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: white;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .settings-container {
-    width: 80%;
-    margin: 50px auto;
-    background-color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-  }
-  
-  h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .setting {
-    margin: 15px 0;
-  }
-  
-  label {
-    font-size: 1.2em;
-    margin-right: 10px;
-  }
-  
-  input[type="range"] {
-    width: 100%;
-    max-width: 200px;
-  }
-  
-  input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  select {
-    padding: 5px;
-    font-size: 1em;
-  }
-  
-  .buttons {
-    margin-top: 30px;
-  }
-  
-  button {
-    background-color: #e74c3c;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    font-size: 1.2em;
-    cursor: pointer;
-    margin: 10px;
-    border-radius: 5px;
-  }
-  
-  button:hover {
-    background-color: #c0392b;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #000; /* Black background */
+  color: white; /* White text */
+  margin: 0;
+  padding: 0;
+}
+
+.settings-container {
+  width: 80%;
+  margin: 50px auto;
+  background-color: #000; /* Black background for settings container */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid white; /* White border for container */
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: white; /* White color for heading */
+}
+
+.setting {
+  margin: 15px 0;
+}
+
+label {
+  font-size: 1.2em;
+  margin-right: 10px;
+  color: white; /* White color for labels */
+}
+
+input[type="range"] {
+  width: 100%;
+  max-width: 200px;
+  background-color: #888; /* Grey background for slider track */
+  border: 2px solid white; /* White border */
+  color: white; /* White text inside range */
+  height: 8px; /* Make the track slightly thicker */
+  border-radius: 5px; /* Rounded corners */
+  appearance: none; /* Remove default appearance */
+  position: relative; /* Needed for proper thumb positioning */
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #888; /* Grey color for the track in WebKit browsers */
+  height: 8px; /* Track height */
+  border-radius: 5px;
+}
+
+input[type="range"]::-moz-range-track {
+  background-color: #888; /* Grey color for the track in Firefox */
+  height: 8px; /* Track height */
+  border-radius: 5px;
+}
+
+input[type="range"]::-ms-track {
+  background-color: #888; /* Grey color for the track in IE */
+  height: 8px; /* Track height */
+  border-radius: 5px;
+  border-color: transparent; /* Remove border */
+  color: transparent; /* Make the thumb transparent */
+  background: #888; /* Keep track grey */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background-color: #fff; /* White thumb */
+  border: 2px solid #888; /* Border around the thumb */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Round thumb */
+  cursor: pointer;
+  appearance: none;
+  margin-top: -6px; /* This centers the thumb on the track */
+}
+
+input[type="range"]::-moz-range-thumb {
+  background-color: #fff; /* White thumb */
+  border: 2px solid #888; /* Border around the thumb */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Round thumb */
+  cursor: pointer;
+}
+
+input[type="range"]::-ms-thumb {
+  background-color: #fff; /* White thumb */
+  border: 2px solid #888; /* Border around the thumb */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Round thumb */
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  border: 2px solid white; /* White border for checkboxes */
+  color: white; /* White color for checkboxes */
+}
+
+select {
+  padding: 5px;
+  font-size: 1em;
+  background-color: #333; /* Dark background for select */
+  color: white; /* White text in select */
+  border: 2px solid white; /* White border for select */
+}
+
+.buttons {
+  margin-top: 30px;
+}
+
+button {
+  background-color: #333; /* Dark background for buttons */
+  color: white; /* White text for buttons */
+  padding: 10px 20px;
+  border: 2px solid white; /* White border */
+  font-size: 1.2em;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #555; /* Slightly lighter background on hover */
+}

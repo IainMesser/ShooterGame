@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Settings</title>
+  <link rel="stylesheet" href="./css/settings.css">
+</head>
+<body>
+  <div class="settings-container">
+    <h1>Game Settings</h1>
+    
+    <div class="setting">
+      <label for="volume">Volume:</label>
+      <input type="range" id="volume" name="volume" min="0" max="100" value="50">
+    </div>
+    
+    <div class="setting">
+      <label for="sound">Sound:</label>
+      <input type="checkbox" id="sound" checked>
+      <span>Enable Sound</span>
+    </div>
+
+    <div class="setting">
+      <label for="difficulty">Difficulty:</label>
+      <select id="difficulty" name="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+
+    <div class="buttons">
+      <button id="saveSettings">Save Settings</button>
+      <button id="backToMenu">Back to Menu</button>
+    </div>
+  </div>
+
+  <script src="./js/settings.js" defer></script>
+</body>
+</html>

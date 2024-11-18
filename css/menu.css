@@ -1,8 +1,8 @@
 /* Global Styles */
 body {
-    font-family: 'Orbitron', sans-serif; /* Gaming-style font */
-    background: linear-gradient(135deg, #111, #222); /* Dark gradient background */
-    color: white;
+    font-family: 'Press Start 2P', cursive; /* Retro arcade-style font */
+    background: #1a1a1a; /* Dark background for better contrast */
+    color: white; /* White text for better readability */
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -14,26 +14,26 @@ body {
 
 h1 {
     font-size: 3rem;
-    color: #00ff00; /* Neon green for a gaming effect */
-    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+    color: #ffffff; /* White color for title */
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff; /* Glowing effect */
     margin-bottom: 30px;
 }
 
 /* Main Menu */
 .menu {
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background with slight transparency */
     padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5); /* Green glow around the menu */
-    backdrop-filter: blur(10px);
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Soft white glow */
+    backdrop-filter: blur(8px);
     width: 300px;
 }
 
 .button {
     background-color: #333;
-    color: #00ff00;
-    border: 2px solid #00ff00;
+    color: white;
+    border: 2px solid white;
     padding: 15px 30px;
     margin: 15px;
     font-size: 20px;
@@ -46,13 +46,13 @@ h1 {
 }
 
 .button:hover {
-    background-color: #00ff00;
-    color: #111;
-    box-shadow: 0 0 15px #00ff00;
+    background-color: white;
+    color: #333;
+    box-shadow: 0 0 15px white;
 }
 
 .button:active {
-    background-color: #00cc00;
+    background-color: #bbb;
     transform: translateY(2px);
 }
 
@@ -67,13 +67,13 @@ h1 {
     background-color: rgba(0, 0, 0, 0.9);
     padding: 20px;
     border-radius: 10px;
-    color: #fff;
+    color: white;
     text-align: center;
 }
 
 .settings h2 {
     font-size: 2rem;
-    color: #00ff00;
+    color: white;
 }
 
 .settings p {
@@ -113,4 +113,19 @@ h1 {
 #settings:target ~ .menu,
 #quit:target ~ .menu {
     display: none;
+}
+
+/* Adding animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Add animation to sections */
+#game:target, #settings:target, #quit:target {
+    animation: fadeIn 0.5s ease-in-out;
 }

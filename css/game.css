@@ -6,31 +6,17 @@ body {
   align-items: center;
   height: 100vh;
   background: #000; /* Black background for contrast */
-}
-
-html, body {
-  height: 100%;
   font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
-  background: #000; /* Set background color to black */
-  color: white; /* Set text color to white */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #fff; /* White text for all content */
   position: relative;
-}
-
-/* General reset and layout */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 /* Canvas Styling */
 #gameCanvas {
-  border: 2px solid white; /* White border for the canvas */
-  background: #111; /* Dark background for canvas */
+  border: 5px solid #fff; /* White border for the canvas */
+  background: #222; /* Dark gray background for canvas */
   display: block;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* Slight glow effect */
 }
 
 /* Menu Button (Hamburger style) */
@@ -38,11 +24,12 @@ html, body {
   position: absolute;
   top: 20px;
   left: 20px;
-  font-size: 30px;
+  font-size: 40px;
   cursor: pointer;
-  color: white; /* White color for button */
-  text-shadow: 0 0 10px white; /* White glow effect */
+  color: #fff; /* White color for button */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* White glow effect */
   transition: transform 0.3s ease;
+  z-index: 10;
 }
 
 /* Dropdown Menu */
@@ -51,15 +38,15 @@ html, body {
   position: absolute;
   top: 70px;
   left: 20px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9); /* Dark menu */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* White glow */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* White glow effect */
   z-index: 10;
 }
 
 .dropdown-menu a {
-  color: white; /* White text for links */
+  color: #fff; /* White text for links */
   text-decoration: none;
   font-size: 20px;
   padding: 10px 20px;
@@ -70,9 +57,9 @@ html, body {
 }
 
 .dropdown-menu a:hover {
-  background-color: white;
+  background-color: #fff;
   color: #111;
-  box-shadow: 0 0 10px white; /* White glow effect on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* White glow effect on hover */
 }
 
 /* Show the dropdown when menu button is clicked */
@@ -80,10 +67,103 @@ html, body {
   display: block;
 }
 
-/* Optional: Fullscreen canvas on smaller screens */
-@media (max-width: 800px) {
-#gameCanvas {
-  width: 100%;
-  height: auto;
+/* Volume Control Styling */
+#volumeControl {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
+
+#volumeControl label {
+  font-size: 18px;
+  color: #fff;
+}
+
+#volumeSlider {
+  width: 200px;
+  margin-top: 5px;
+}
+
+/* Styling for the Game Over Screen */
+#gameOverScreen {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8); /* Dark, slightly transparent background */
+  padding: 30px 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Soft glowing shadow */
+  animation: fadeIn 0.3s ease-out; /* Subtle fade-in animation */
+  z-index: 1000;
+}
+
+/* Title (Game Over) */
+#gameOverScreen h1 {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3); /* Light glow */
+}
+
+/* Final Score Text */
+#gameOverScreen p {
+  color: #ddd;
+  font-size: 20px;
+  margin-bottom: 25px;
+  font-weight: 300;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Button Styling */
+#gameOverScreen button {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  margin: 10px;
+  text-transform: uppercase;
+}
+
+#gameOverScreen button:hover {
+  background-color: #fff;
+  color: #111;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* Subtle glowing effect on hover */
+}
+
+/* Keyframe Animation for Fade-in Effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+@media (max-width: 800px) {
+  #gameCanvas {
+    width: 100%;
+    height: auto;
+  }
 }

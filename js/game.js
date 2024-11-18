@@ -31,8 +31,9 @@ let score = 0;
 let level = 1;
 let enemyFrequency = 1000; 
 
-// Game paused state
+// Game paused and game over state
 let gamePaused = false;
+let gameOverFlag = false;
 
 // Controls
 const keys = {};
@@ -72,8 +73,8 @@ function spawnPowerUp() {
 
 // Game loop
 function gameLoop() {
-  if (gamePaused) return; // Pause game if paused
-
+  if (gameOverFlag) return; // Stop the game if game is over
+  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (keys["ArrowLeft"] && player.x > 0) player.x -= player.speed;
@@ -213,9 +214,22 @@ function gameLoop() {
 
 // Game Over Function
 function gameOver() {
-  alert("Game Over! Final Score: " + score);
-  document.location.reload();
+  // Set game over flag
+  gameOverFlag = true;
+
+  // Display game over screen with score
+  document.getElementById('gameOverScreen').style.display = 'block';
+  document.getElementById('finalScore').textContent = "Final Score: " + score;
 }
+
+// Restart game or return to main menu
+document.getElementById('playAgainButton').addEventListener('click', function() {
+  location.reload(); // Reload the page to start again
+});
+
+document.getElementById('backToMenuButton').addEventListener('click', function() {
+  window.location.href = './index.html'; // Redirect to main menu
+});
 
 // Level Up Function
 function levelUp() {

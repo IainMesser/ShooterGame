@@ -160,6 +160,57 @@ body {
   }
 }
 
+/* Styling for the How to Play Popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  z-index: 1001;
+  width: 80%;
+  max-width: 500px;
+  color: #fff;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.popup p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.popup button {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.popup button:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+.popup label {
+  font-size: 14px;
+}
+
 
 @media (max-width: 800px) {
   #gameCanvas {

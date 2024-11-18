@@ -73,7 +73,7 @@ function spawnPowerUp() {
 
 // Game loop
 function gameLoop() {
-  if (gameOverFlag) return; // Stop the game if game is over
+  if (gameOverFlag || gamePaused) return; // Stop the game if game is over or paused
   
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -256,11 +256,11 @@ menuButton.addEventListener('click', () => {
 
   // Pause game when dropdown menu is opened
   gamePaused = !gamePaused;
-
+  
   if (!gamePaused) {
     gameLoop(); // Restart the game loop if resumed
   }
 });
 
-// Start the game
+// Start the game loop initially
 gameLoop();

@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #000;
+  }
+  
+  canvas {
+    border: 2px solid #fff;
+    background: #111;
+  }
+  
+  /* General reset and layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+  background: #111; /* Dark background */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* To position the menu button */
+}
+
+/* Canvas Styling */
+#gameCanvas {
+  border: 2px solid #00ff00; /* Neon green border */
+  background: #222; /* Dark background for canvas */
+  display: block;
+}
+
+/* Menu Button (Hamburger style) */
+.menu-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+  transition: transform 0.3s ease;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.6); /* Neon green glow */
+  z-index: 10;
+}
+
+.dropdown-menu a {
+  color: #00ff00;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 10px 20px;
+  display: block;
+  transition: background-color 0.3s ease;
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+
+.dropdown-menu a:hover {
+  background-color: #00ff00;
+  color: #111;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+/* Show the dropdown when menu button is clicked */
+.menu-button.open + .dropdown-menu {
+  display: block;
+}
+
+
+
+/* Optional: Fullscreen canvas on smaller screens */
+@media (max-width: 800px) {
+  #gameCanvas {
+    width: 100%;
+    height: auto;
+  }
+}

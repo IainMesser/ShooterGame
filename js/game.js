@@ -1,103 +1,252 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// Game settings
+// Game objects
 const player = {
-  x: 400,
-  y: 350,
+  x: 50,
+  y: 300,
   width: 40,
   height: 40,
   color: "blue",
-  speed: 5
+  speed: 4,
+  jumpSpeed: -12,
+  gravity: 0.5,
+  velocityY: 0,
+  isJumping: false,
+  onGround: false,
+  platform: null,
+  isShieldActive: false,
+  shieldTimer: 0
 };
 
 const bullets = [];
-const targets = [];
+const enemies = [];
+const platforms = [
+  { x: 150, y: 250, width: 100, height: 10 },
+  { x: 300, y: 200, width: 100, height: 10 },
+  { x: 500, y: 300, width: 100, height: 10 }
+];
+const powerUps = [];
 let score = 0;
+let level = 1;
+let enemyFrequency = 1000; 
 
-// Initialize targets
-for (let i = 0; i < 5; i++) {
-  targets.push({
-    x: 100 + i * 150,
-    y: 100,
-    width: 40,
-    height: 40,
-    color: "red"
-  });
-}
+// Game paused state
+let gamePaused = false;
 
-// Event listeners
+// Controls
 const keys = {};
 window.addEventListener("keydown", (e) => (keys[e.key] = true));
 window.addEventListener("keyup", (e) => (keys[e.key] = false));
 
+// Spawn enemies periodically
+let enemyInterval = setInterval(spawnEnemy, enemyFrequency);
+
+// Spawn power-ups periodically
+let powerUpInterval = setInterval(spawnPowerUp, 5000);
+
+function spawnEnemy() {
+  enemies.push({
+    x: canvas.width,
+    y: Math.random() * 300 + 50,
+    width: 40,
+    height: 40,
+    color: "red",
+    speed: 2 + Math.random() * 2
+  });
+}
+
+function spawnPowerUp() {
+  const powerUpType = "shield"; 
+  const x = Math.random() * (canvas.width - 50);
+  const y = Math.random() * (canvas.height - 100) + 50;
+  powerUps.push({
+    x: x,
+    y: y,
+    width: 30,
+    height: 30,
+    color: "blue",
+    type: powerUpType
+  });
+}
+
 // Game loop
 function gameLoop() {
+  if (gamePaused) return; // Pause game if paused
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw player
-  ctx.fillStyle = player.color;
-  ctx.fillRect(player.x, player.y, player.width, player.height);
-
-  // Move player
   if (keys["ArrowLeft"] && player.x > 0) player.x -= player.speed;
-  if (keys["ArrowRight"] && player.x < canvas.width - player.width) player.x += player.speed;
+  if (keys["ArrowRight"] && player.x + player.width < canvas.width) player.x += player.speed;
 
-  // Shoot bullets
-  if (keys[" "] && bullets.length === 0) {
+  if (keys["ArrowUp"]) {
+    if (player.onGround) {
+      player.velocityY = player.jumpSpeed;
+      player.onGround = false;
+      player.platform = null;
+    }
+  }
+
+  if (!player.onGround) {
+    player.velocityY += player.gravity;
+    player.y += player.velocityY;
+  }
+
+  player.onGround = false;
+
+  platforms.forEach((platform) => {
+    if (
+      player.x < platform.x + platform.width &&
+      player.x + player.width > platform.x &&
+      player.y + player.height <= platform.y &&
+      player.y + player.height + player.velocityY >= platform.y
+    ) {
+      player.y = platform.y - player.height;
+      player.velocityY = 0;
+      player.onGround = true;
+      player.platform = platform;
+    }
+  });
+
+  if (player.y + player.height >= canvas.height) {
+    player.y = canvas.height - player.height;
+    player.velocityY = 0;
+    player.onGround = true;
+    player.platform = null;
+  }
+
+  if (keys[" "] && bullets.length < 5) {
     bullets.push({
-      x: player.x + player.width / 2 - 5,
-      y: player.y,
+      x: player.x + player.width,
+      y: player.y + player.height / 2 - 5,
       width: 10,
-      height: 20,
-      color: "yellow"
+      height: 5,
+      color: "yellow",
+      speed: 6
     });
   }
 
-  // Update and draw bullets
   bullets.forEach((bullet, index) => {
-    bullet.y -= 10;
-    if (bullet.y + bullet.height < 0) bullets.splice(index, 1);
-
+    bullet.x += bullet.speed;
+    if (bullet.x > canvas.width) bullets.splice(index, 1);
     ctx.fillStyle = bullet.color;
     ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
   });
 
-  // Update and draw targets
-  targets.forEach((target, index) => {
-    ctx.fillStyle = target.color;
-    ctx.fillRect(target.x, target.y, target.width, target.height);
-
-    // Check collision with bullets
-    bullets.forEach((bullet, bulletIndex) => {
+  enemies.forEach((enemy, eIndex) => {
+    enemy.x -= enemy.speed;
+    bullets.forEach((bullet, bIndex) => {
       if (
-        bullet.x < target.x + target.width &&
-        bullet.x + bullet.width > target.x &&
-        bullet.y < target.y + target.height &&
-        bullet.y + bullet.height > target.y
+        bullet.x < enemy.x + enemy.width &&
+        bullet.x + bullet.width > enemy.x &&
+        bullet.y < enemy.y + enemy.height &&
+        bullet.y + bullet.height > enemy.y
       ) {
-        targets.splice(index, 1); // Remove target
-        bullets.splice(bulletIndex, 1); // Remove bullet
-        score += 10; // Increase score
+        enemies.splice(eIndex, 1);
+        bullets.splice(bIndex, 1);
+        score += 10;
       }
     });
+
+    if (enemy.x + enemy.width < 0) enemies.splice(eIndex, 1);
+    ctx.fillStyle = enemy.color;
+    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
   });
 
-  // Draw score
+  powerUps.forEach((powerUp, pIndex) => {
+    ctx.fillStyle = powerUp.color;
+    ctx.fillRect(powerUp.x, powerUp.y, powerUp.width, powerUp.height);
+
+    if (
+      player.x < powerUp.x + powerUp.width &&
+      player.x + player.width > powerUp.x &&
+      player.y < powerUp.y + powerUp.height &&
+      player.y + player.height > powerUp.y
+    ) {
+      if (powerUp.type === "shield") {
+        player.isShieldActive = true;
+        player.shieldTimer = 200;
+      }
+      powerUps.splice(pIndex, 1);
+    }
+  });
+
+  platforms.forEach((platform) => {
+    ctx.fillStyle = "gray";
+    ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+  });
+
+  ctx.fillStyle = player.isShieldActive ? "rgba(0, 0, 255, 0.5)" : player.color;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+
   ctx.fillStyle = "white";
   ctx.font = "20px Arial";
   ctx.fillText("Score: " + score, 10, 30);
+  ctx.fillText("Level: " + level, canvas.width - 100, 30);
 
-  // End game if all targets are destroyed
-  if (targets.length === 0) {
-    ctx.fillStyle = "white";
-    ctx.font = "30px Arial";
-    ctx.fillText("You Win!", canvas.width / 2 - 70, canvas.height / 2);
-    return; // Stop game loop
+  if (score >= level * 50) {
+    levelUp();
+  }
+
+  if (!player.isShieldActive) {
+    enemies.forEach((enemy) => {
+      if (
+        player.x < enemy.x + enemy.width &&
+        player.x + player.width > enemy.x &&
+        player.y < enemy.y + enemy.height &&
+        player.y + player.height > enemy.y
+      ) {
+        gameOver();
+      }
+    });
+  }
+
+  if (player.isShieldActive) {
+    player.shieldTimer--;
+    if (player.shieldTimer <= 0) {
+      player.isShieldActive = false;
+    }
   }
 
   requestAnimationFrame(gameLoop);
 }
+
+// Game Over Function
+function gameOver() {
+  alert("Game Over! Final Score: " + score);
+  document.location.reload();
+}
+
+// Level Up Function
+function levelUp() {
+  level++;
+  if (level > 10) {
+    alert("You won the game! Final Score: " + score);
+    document.location.reload();
+  } else {
+    enemyFrequency = Math.max(500, 1000 - level * 100);
+    clearInterval(enemyInterval);
+    enemyInterval = setInterval(spawnEnemy, enemyFrequency);
+    score += 20;
+  }
+}
+
+// Select the menu button and dropdown menu
+const menuButton = document.getElementById('menuButton');
+const dropdownMenu = document.getElementById('dropdownMenu');
+
+// Toggle dropdown menu visibility
+menuButton.addEventListener('click', () => {
+  menuButton.classList.toggle('open');
+  dropdownMenu.classList.toggle('open');
+
+  // Pause game when dropdown menu is opened
+  gamePaused = !gamePaused;
+
+  if (!gamePaused) {
+    gameLoop(); // Restart the game loop if resumed
+  }
+});
 
 // Start the game
 gameLoop();

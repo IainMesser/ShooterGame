@@ -1,0 +1,116 @@
+/* Global Styles */
+body {
+    font-family: 'Orbitron', sans-serif; /* Gaming-style font */
+    background: linear-gradient(135deg, #111, #222); /* Dark gradient background */
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #00ff00; /* Neon green for a gaming effect */
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+    margin-bottom: 30px;
+}
+
+/* Main Menu */
+.menu {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5); /* Green glow around the menu */
+    backdrop-filter: blur(10px);
+    width: 300px;
+}
+
+.button {
+    background-color: #333;
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    padding: 15px 30px;
+    margin: 15px;
+    font-size: 20px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #00ff00;
+    color: #111;
+    box-shadow: 0 0 15px #00ff00;
+}
+
+.button:active {
+    background-color: #00cc00;
+    transform: translateY(2px);
+}
+
+.back-button {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* Settings Section */
+.settings {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.settings h2 {
+    font-size: 2rem;
+    color: #00ff00;
+}
+
+.settings p {
+    font-size: 1.2rem;
+}
+
+#settings:target {
+    display: block;
+}
+
+.quit {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    text-align: center;
+}
+
+.quit h2 {
+    font-size: 2rem;
+    color: #ff0000; /* Red color for quit section */
+}
+
+.quit a {
+    color: #ff0000;
+}
+
+#quit:target {
+    display: block;
+}
+
+/* Targeted Sections */
+#game:target, #settings:target, #quit:target {
+    display: block;
+}
+
+#game:target ~ .menu,
+#settings:target ~ .menu,
+#quit:target ~ .menu {
+    display: none;
+}

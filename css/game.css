@@ -25,10 +25,10 @@ body {
   top: 20px;
   left: 20px;
   font-size: 40px;
-  cursor: pointer;
   color: #fff; /* White color for button */
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* White glow effect */
   transition: transform 0.3s ease;
+  cursor: pointer; /* Hand cursor on hover */
   z-index: 10;
 }
 
@@ -216,5 +216,68 @@ body {
   #gameCanvas {
     width: 100%;
     height: auto;
+  }
+}
+
+/* Victory Screen Styling */
+#victoryScreen {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 30px 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  animation: fadeIn 0.3s ease-out;
+  z-index: 1000;
+}
+
+#victoryScreen h1 {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+#victoryScreen p {
+  color: #ddd;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+#victoryScreen button {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  margin: 10px;
+  text-transform: uppercase;
+}
+
+#victoryScreen button:hover {
+  background-color: #fff;
+  color: #111;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
 }

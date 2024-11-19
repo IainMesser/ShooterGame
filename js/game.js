@@ -234,16 +234,31 @@ document.getElementById('backToMenuButton').addEventListener('click', function()
 // Level Up Function
 function levelUp() {
   level++;
-  if (level > 10) {
-    alert("You won the game! Final Score: " + score);
-    document.location.reload();
+  
+  if (level >= 10) {
+    // Show Victory Screen when reaching level 10
+    document.getElementById("victoryScore").textContent = score;
+    document.getElementById("victoryScreen").style.display = "block"; 
   } else {
+    // Increase enemy spawn frequency and update score
     enemyFrequency = Math.max(500, 1000 - level * 100);
     clearInterval(enemyInterval);
     enemyInterval = setInterval(spawnEnemy, enemyFrequency);
     score += 20;
   }
 }
+
+// Restart the game or return to the main menu
+document.getElementById("restartButton").addEventListener("click", function() {
+  level = 1;
+  score = 0;
+  location.reload(); // Reload to restart the game
+});
+
+document.getElementById("backToMenuButton").addEventListener("click", function() {
+  window.location.href = './index.html'; // Redirect to the main menu page
+});
+
 
 // Select the menu button and dropdown menu
 const menuButton = document.getElementById('menuButton');
